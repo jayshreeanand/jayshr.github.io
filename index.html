@@ -1,100 +1,77 @@
-    <!DOCTYPE html>
-    <html><!--
-
---><head>
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset="utf-8">
 <title>Minesweeper</title>
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
 <link href="./css/app.css" rel="stylesheet">
-
-
 </head>
 
 
 <body>
+<div class="container">
 
-    <div class="container">
-
-        <h2> Minesweeper Game </h2>
-
-        <div class="row">
-
-
-
-
-            <div class="col-md-3  panel panel-default">
-
-<div class="panel-body">
+    <h2> Minesweeper Game </h2>
 
     <div class="row">
+        <div class="col-md-3  panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <input id="difficulty-level" value="easy" type ="hidden"/>
+                    <div class="col-md-6">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-success" data-toggle="dropdown">
+                                Board Size <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="javascript:setLevel('easy')">Easy</a></li>
+                                <li><a href="javascript:setLevel('medium')">Medium</a></li>
+                                <li><a href="javascript:setLevel('hard')">Hard</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-md-offset-2">
+                        <button  type="button" id ="bn-reset" class="btn btn-danger bn-reset" onclick = "minesweeper.restart()" name="bn-reset">Reset </button>  
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="list-group">
+                <li class="list-group-item"><span class="glyphicon glyphicon-time "></span>   Timer<span class="badge"><div id="timer"></div></span></li>
+                <li class="list-group-item"><span class="glyphicon glyphicon-asterisk"></span>   Mines Remaining<span class="badge badge-danger" ><div id="remaining-mines"></div></span></li>
+            </ul>
+        </div>
 
-       <input id="difficulty-level" value="easy" type ="hidden"/>
-       <div class="col-md-6">
-        <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle btn-success" data-toggle="dropdown">
-            Board Size <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="javascript:setLevel('easy')">Easy</a></li>
-            <li><a href="javascript:setLevel('medium')">Medium</a></li>
-            <li><a href="javascript:setLevel('hard')">Hard</a></li>
-        </ul>
-    </div>
-</div>
-<div class="col-md-3 col-md-offset-2">
-    <button  type="button" id ="bn-reset" class="btn btn-danger bn-reset" onclick = "minesweeper.restart()" name="bn-reset">Reset </button>  
-</div>
-</div>
-</div>
-
-
-
-<ul class="list-group">
-    <li class="list-group-item"><span class="glyphicon glyphicon-time "></span>   Timer<span class="badge"><div id="timer"></div></span></li>
-    <li class="list-group-item"><span class="glyphicon glyphicon-asterisk"></span>   Mines Remaining<span class="badge badge-danger" ><div id="remaining-mines"></div></span></li>
-    
-</ul>
-
-
-
-</div>
-
-<div class="col-md-9">
-    <div id="game-board" class="game-board" style="cursor:pointer">
-    </div>
-</div>
-
-</div>    
-
-
-</div>
-
-
-
-
-</div>
-
+        <div class="col-md-9">
+            <div id="game-board" class="game-board" style="cursor:pointer">
+            </div>
+        </div>
+    </div>    
 </div>
 </div>
+
 <script src="./js/jquery.js"></script> <!-- for bootstrap -->
 <script src="./src/game.js"></script>
 <script src="./src/board.js"></script>
 <script src="./src/field.js"></script>
 <script src="./js/bootstrap.js"></script>
+
 <script type="text/javascript">
-    var minesweeper = new Game();
-    minesweeper.start();
+var minesweeper = new Game();
+minesweeper.start();  //initializing the game
 </script>
+
+
 <script type="text/javascript">
-    function setLevel(level){
+/* Resetting the game difficulty level*/
+function setLevel(level){
 
-        document.getElementById("difficulty-level").value = level;
-        minesweeper.restart();
+document.getElementById("difficulty-level").value = level;
+minesweeper.restart();
 
-    }
+}
 </script>
 
 </body></html>
