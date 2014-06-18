@@ -108,12 +108,7 @@ if(this.field[coord.row][coord.col].isOpen()){
 }else
 {
   this.changeState(coord.row,coord.col);
-  if (this.flagCount == this.mineCount){
-        if(this.matchFlagsMines()){
-          this.triggerWin();
-
-        }
-    }
+  
    
 }
 }
@@ -260,7 +255,7 @@ Board.prototype.matchFlagsMines = function() {
 
     for(var j=1; j<=this.cols; j++){
 
-        if(this.field[i][j].isFlag() && !(this.flag[i][j].isMine())){ //marked as flag but not a mine
+        if(this.field[i][j].isFlag() && !(this.field[i][j].isMine())){ //marked as flag but not a mine
 
           return false;
 
@@ -305,6 +300,15 @@ console.log("new status is "+ change);
   this.field[row][col].status = change;
   this.updateRemainingMineCount();
   this.field[row][col].updateFieldView(change);
+console.log("flagcount" + this.flagCount);
+
+ if(this.flagCount == this.mineCount){
+    console.log("this.flagcoutn is "+ this.flagCount)
+        if(this.matchFlagsMines()){
+          this.triggerWin();
+
+        }
+    }
 
 };
 
