@@ -19,14 +19,6 @@ Game.prototype.start = function(){
 
 
   this.options = this.getUserOptions();
-  console.log("saving to local storage" + "rows "+ this.options[0] + "mine count" + this.options[2] );
-  var abc = JSON.stringify(this.options);
-  localStorage.setItem("game-data",abc);
-  console.log("abc is this"+ abc);
-  var xyz = localStorage.getItem("game-data");
-  console.log("xyz is this" + xyz);
-  var pqr = xyz;
-  console.log("pqr is this "+ pqr);
   this.startTime = null;
   this.timerElement.innerHTML = "00:00";
   // this.movesArray = new Array();
@@ -48,32 +40,11 @@ Game.prototype.restart = function(){
 
   this.start();
 };
-Game.prototype.checkWinGame = function(){
-  if(this.board.matchFlagsMines){
-    this.winGame();
-
-  }
-};
 
 Game.prototype.endGame =function(){
   this.stopTimer();
   this.disableClickListener();
 }
-
-Game.prototype.gameOver = function(row,col){
-//loose game message here
-window.setTimeout(function() { window.alert ('Game Over!');}, 100);
-this.endGame();
-}
-
-
-Game.prototype.winGame = function() {
-//win game message here
-window.setTimeout(function() { window.alert ('You Win!');}, 100);
-this.board.showFlags();
-this.endGame();
-};
-
 
 Game.prototype.enableClickListener = function() {
   var id, typeofButton;

@@ -7,10 +7,12 @@ var Board = function(options){
   this.createBoard();
   this.plantMines();
   this.calculateFieldCount(); 
-  this.emptyMinesNotOpened = (this.rows * this.cols) - this.mines;
+  this.emptyMinesNotOpened = (this.rows * this.cols) - this.mineCount;
 //this.solve();
   this.updateRemainingMineCount();
 };
+
+
 
 
 Board.prototype.updateRemainingMineCount = function(){
@@ -20,38 +22,6 @@ Board.prototype.updateRemainingMineCount = function(){
   return;
 
 };
-
-Board.prototype.showFlags = function(){
-  for(var i = 1; i<= this.rows; i++){
-
-    for(var j=1; j<=this.cols; j++){
-
-      if(this.field[i][j].isMine && (!this.field[i][j].isFlag)){
-        //reveal the flag here (set field to flag)
-        this.field[i][j].updateFieldView("flag");
-      }
-    }
-  } 
-};
-
-Board.prototype.matchFlagsMines = function() {
-
-  for(var i =1; i<= this.rows; i++){
-
-    for(var j=1; j<=this.cols; j++){
-
-        if(this.field[i][j].isFlag() && !(this.flag[i][j].isMine())){ //marked as flag but not a mine
-
-          return false;
-
-        }
-
-      }
-  }
-return true;
-};
-
-
 
 
 Board.prototype.createBoard = function(){
@@ -138,12 +108,32 @@ if(this.field[coord.row][coord.col].isOpen()){
 }else
 {
   this.changeState(coord.row,coord.col);
-  return false;
+  if (this.flagCount == this.mineCount){
+        if(this.matchFlagsMines()){
+          this.triggerWin();
+
+        }
+    }
+   
 }
 }
 
 };
 
+Board.prototype.triggerWin = function(){
+
+  window.setTimeout(function() { window.alert ('You Win!');}, 100);
+  this.showFlags();
+  minesweeper.endGame();
+};
+
+Board.prototype.triggerGameOver = function(){
+
+  window.setTimeout(function() { window.alert ('Game Over!');}, 100);
+  minesweeper.endGame();
+
+
+};
 Board.prototype.openField = function(row,col){
   var id = getIdFromRowCol(row,col,this.rows); //not needed
   console.log("id is "+ id + " row is "+ row + "col is "+ col);
@@ -152,9 +142,12 @@ Board.prototype.openField = function(row,col){
     //game overteFieldView("blasrit");
       //trigger other gameover events here
       this.gameOverSolve(row,col);
-      minesweeper.gameOver(); //minesweeper is global uncomment this line
+      this.triggerGameOver();
+     
 
   }else{
+  this.emptyMinesNotOpened--;
+  console.log("This.emptymines not opened value "+ this.emptyMinesNotOpened);
 
   if(this.field[row][col].mineCount ==0) //this contains no surrounding mines
     {
@@ -164,6 +157,11 @@ Board.prototype.openField = function(row,col){
     } else{
       this.field[row][col].updateFieldView(this.field[row][col].mineCount);
     }
+
+    if(this.emptyMinesNotOpened == 0){
+
+      this.triggerWin();
+    };
   }
 
 };
@@ -243,7 +241,35 @@ var id ;
     }
 };
 
+Board.prototype.showFlags = function(){
+  for(var i = 1; i<= this.rows; i++){
 
+    for(var j=1; j<=this.cols; j++){
+
+      if(this.field[i][j].isMine() && (!this.field[i][j].isFlag())){
+        //reveal the flag here (set field to flag)
+        this.field[i][j].updateFieldView("flag");
+      }
+    }
+  } 
+};
+
+Board.prototype.matchFlagsMines = function() {
+
+  for(var i =1; i<= this.rows; i++){
+
+    for(var j=1; j<=this.cols; j++){
+
+        if(this.field[i][j].isFlag() && !(this.flag[i][j].isMine())){ //marked as flag but not a mine
+
+          return false;
+
+        }
+
+      }
+  }
+return true;
+};
 Board.prototype.fieldExists = function(row,col){
 
   if((row >0 && row <=this.rows ) &&(col>0 && col <= this.cols)){
