@@ -26,6 +26,10 @@ padding-left: 20px;
     border-color: #DAE6E6;
 }
 
+.mine{
+    background-color: #CCCCCC;
+}
+
 .blast{
     background-color: red;
     color:black;
