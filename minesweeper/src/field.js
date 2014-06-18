@@ -46,6 +46,8 @@ Field.prototype.updateFieldView = function(type){
 		classType = type;
 	}
 	field.className = classType;
+
+	minesweeper.updateLocalStorage();
 };
 
 

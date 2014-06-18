@@ -4,15 +4,66 @@ var Board = function(options){
   this.cols = options[1];// second element of the options array
   this.mineCount = options[2]; //3rd element
   this.flagCount = 0;
+var storedData = localStorage.getItem("game-data");
+var storedDataObj = JSON.parse(storedData);
+console.log("stored data found" + storedData);
+
+if(storedDataObj!= null){
+
+this.restoreSavedBoard(storedDataObj);
+}
+else{
+
+
   this.createBoard();
   this.plantMines();
   this.calculateFieldCount(); 
+
+}
   this.emptyMinesNotOpened = (this.rows * this.cols) - this.mineCount;
 //this.solve();
   this.updateRemainingMineCount();
+
 };
 
 
+Board.prototype.restoreSavedBoard = function(data){
+
+this.rows = parseInt(data.rows);
+this.cols = parseInt(data.cols);
+this.mineCount = parseInt(data.mineCount);
+
+ var html ='';
+  // var type= "closed";
+  this.field = new Array(this.rows);
+  for( var i =1 ; i<= this.rows ; i++){
+
+    this.field[i]= new Array(this.cols);
+    html += '<div class="row">';
+
+    for( var j=1; j<= this.cols; j++){
+      if(data.board.field[i][j].symbol ==0){
+        data.board.field[i][j].symbol = '';
+      }
+      this.field[i][j] = new Field(i, j,this.rows,this.cols);
+      this.field[i][j].row = data.board.field[i][j].row;
+      this.field[i][j].col = data.board.field[i][j].col;
+      this.field[i][j].id = data.board.field[i][j].id;
+      this.field[i][j].status = data.board.field[i][j].status;
+      this.field[i][j].symbol = data.board.field[i][j].symbol;
+      this.field[i][j].mineCount = data.board.field[i][j].mineCount;
+
+
+      html+= '<span class="' + data.board.field[i][j].classdetails + '" id="'+parseInt(data.board.field[i][j].id)+'">'+data.board.field[i][j].symbol+'</span>'
+    }
+    html += '</div>';
+  }
+  this.element.append(html);
+
+
+
+
+};
 
 
 Board.prototype.updateRemainingMineCount = function(){

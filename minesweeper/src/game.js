@@ -32,7 +32,44 @@ Game.prototype.startTimer = function(){
   this.initTimer();
 };
 
+Game.prototype.stopTimer = function(){
 
+  this.startTime = null;
+
+}
+
+Game.prototype.updateLocalStorage = function(){
+
+  var data ={};
+  data.timeElapsed = new Date().getTime() - this.startTime;
+  data.rows = this.board.rows;
+  data.cols = this.board.cols;
+  data.mineCount = this.board.mineCount;
+
+  data.board = {};
+  data.board.FlagCount = this.board.flagCount;
+  data.board.field = new Array(this.rows);
+  for(var i=1; i<=this.board.rows; i++){
+  data.board.field[i] = new Array(this.cols);
+
+    for(var j=1; j<= this.board.cols; j++){
+  data.board.field[i][j] = {};
+
+      data.board.field[i][j].mine = this.board.field[i][j].mine;
+      data.board.field[i][j].status = this.board.field[i][j].status;
+      data.board.field[i][j].symbol = this.board.field[i][j].symbol;
+      data.board.field[i][j].id = this.board.field[i][j].id;
+      data.board.field[i][j].row = this.board.field[i][j].row;
+      data.board.field[i][j].col = this.board.field[i][j].col;
+      data.board.field[i][j].mineCount = this.board.field[i][j].mineCount;
+      data.board.field[i][j].classdetails = document.getElementById(this.board.field[i][j].id).className;
+      data.board.field[i][j].htmlContent = document.getElementById(this.board.field[i][j].id).text;
+    }
+
+  }
+  localStorage.setItem("game-data",JSON.stringify(data));
+  console.log("data saved is "+ JSON.stringify(data));
+};
 
 Game.prototype.restart = function(){
   this.board.element.empty();
@@ -90,11 +127,6 @@ Game.prototype.disableClickListener = function() {
 };
 
 
-Game.prototype.stopTimer = function(){
-
-  this.startTime = null;
-
-}
 
 Game.prototype.getUserOptions = function(){
   var difficulty = document.getElementById("difficulty-level").value;
