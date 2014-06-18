@@ -16,5 +16,6 @@ Goal  - find all mines on the board
 - if user clicks on square with mine - Game over
 - if user clicks on square without mine - show the number of mines surrounding that square
 - right clicking on a square - flags it
+- clicking on already revealed square - reveals all surrounding squares that are not flagged  -- If this reveals a square with a mine ( not flagged) - then game over
 - if user clicks on a square with no mine and also no surrounding mines --( square with no number) - then all connected empty squares are revealed
 

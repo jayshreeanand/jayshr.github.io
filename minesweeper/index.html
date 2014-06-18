@@ -5,11 +5,10 @@
 <title>Minesweeper</title>
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link href="./css/app.css" rel="stylesheet">
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+<link rel="stylesheet" href="./css/app.css">
+
 </head>
-
-
 <body>
 <div class="container">
 
@@ -48,6 +47,7 @@
             <div id="game-board" class="game-board" style="cursor:pointer">
             </div>
         </div>
+
     </div>    
 </div>
 </div>
@@ -59,8 +59,12 @@
 <script src="./js/bootstrap.js"></script>
 
 <script type="text/javascript">
-var minesweeper = new Game();
-minesweeper.start();  //initializing the game
+
+$(document).ready(function() {
+    boardElement = $("#game-board");
+    minesweeper = new Game(boardElement);
+    minesweeper.start();
+    });
 </script>
 
 
@@ -73,5 +77,4 @@ minesweeper.restart();
 
 }
 </script>
-
 </body></html>
