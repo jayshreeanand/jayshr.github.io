@@ -6,14 +6,13 @@
   <body>
     <h1>Meeting room status is <span id="result"></span></h1>
     <script type="text/javascript">
-
-    $.get(
-    "https://dweet.io/get/latest/dweet/for/esp8266_smartmeeting_1",
-    function(data) {
-       var result = data['with'][0]['content']['status'];
-       document.getElementById('result').innerHTML = result;
-    }
-   );
+      $.get(
+        "https://dweet.io/get/latest/dweet/for/esp8266_smartmeeting_1",
+        function(data) {
+          var result = data['with'][0]['content']['status'];
+          document.getElementById('result').innerHTML = result;
+        }
+      );
     </script>
   </body>
 </html>
